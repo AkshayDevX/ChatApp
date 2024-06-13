@@ -5,7 +5,7 @@
 
 ChatApp is a powerful and engaging platform that allows users to engage in real-time one-to-one conversations. Built with the cutting-edge MERN stack (MongoDB, Express, React, Node.js) and the blazing-fast Socket.IO library, ChatApp delivers a seamless and responsive messaging experience.
 
-Messages are securely stored in a robust database and fetched in real-time using Socket.IO and the tanStack query library, ensuring lightning-fast data transfers and optimal performance. With its sleek and intuitive user interface, ChatApp provides a delightful messaging experience for users of all ages and backgrounds.
+Messages are securely stored in a robust database and fetched in real-time using Socket.IO and the tanStack query library, ensuring lightning-fast data transfers and optimal performance.
 
 ## Getting Started 🚀
 
