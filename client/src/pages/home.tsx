@@ -108,7 +108,7 @@ const Home = () => {
       refetchAllUsers();
       refetchUserData();
       const updatedUsers = onlineUsers.filter(
-        (user: socketUser) => user.userID !== socket.id
+        (user: socketUser) => user.userID !== socket.userID
       );
       setOnlineUsers(updatedUsers);
     });
@@ -130,6 +130,8 @@ const Home = () => {
     );
     setSelectedUser(currentUser);
   };
+
+
 
   return (
     <div>
@@ -159,12 +161,11 @@ const Home = () => {
         {/* Chat */}
         {selectedUser && (
           <div className="">
-            {/* Render the chat component or window for the selected user */}
+            {/* Render the chat component for the selected user */}
             <p>Selected User: {selectedUser.username}</p>
             <ChatComponent
               selectedUser={selectedUser}
               loginUser={userData}
-              onlineUsers={onlineUsers}
             />
           </div>
         )}

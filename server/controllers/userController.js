@@ -1,3 +1,4 @@
+const Message = require("../models/message");
 const User = require("../models/user");
 const catchAsyncErrors = require("../utils/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorHandler");
@@ -91,34 +92,20 @@ exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-// send message
-exports.sendMessage = catchAsyncErrors(async (req, res, next) => {
-  const userId = req.user.id;
-  const { receiverId, message } = req.body;
+// get all messages
+exports.getAllMessages = catchAsyncErrors(async (req, res, next) => {
+  const Id = req.user.id;
 
-  const user = await User.findById(userId);
-
-  let conversation = null;
-
-  if (user.conversations.length >= 1) {
-    conversation = user.conversations.find(
-      (conv) => conv.user.toString() === receiverId
-    );
-  }
-
-  if (conversation) {
-    conversation.messages.push({ content: message, createdAt: Date.now() });
-  } else {
-    user.conversations.push({
-      user: receiverId,
-      messages: [{ content: message, createdAt: Date.now() }],
-    });
-  }
-
-  await user.save();
+  const messages = await Message.find({
+    $or: [
+      { from: Id },
+      { to: Id },
+    ],
+  })
 
   res.status(200).json({
     success: true,
-    message: "Message sent successfully",
+    messages,
   });
+
 });

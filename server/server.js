@@ -71,20 +71,6 @@ socketIO.on("connection", async (socket) => {
 
   // fetch existing users
   const users = [];
-  // const messagesPerUser = new Map();
-  // const messages = await messageStore?.findMessagesForUser(socket.userID);
-
-  // if (Array.isArray(messages)) {
-  //   messages.forEach((message) => {
-  //     const { from, to } = message;
-  //     const otherUser = socket.userID === from ? to : from;
-  //     if (messagesPerUser.has(otherUser)) {
-  //       messagesPerUser.get(otherUser)?.push(message);
-  //     } else {
-  //       messagesPerUser.set(otherUser, [message]);
-  //     }
-  //   });
-  // }
   const sessions = await sessionStore.findAllSessions();
 
   if (Array.isArray(sessions)) {
