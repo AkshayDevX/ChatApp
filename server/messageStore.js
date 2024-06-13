@@ -2,7 +2,6 @@ const Message = require("./models/message");
 
 class MessageStore {
   saveMessage(message) {}
-  findMessagesForUser(userID) {}
 }
 
 class MongoMessageStore extends MessageStore {
@@ -21,18 +20,6 @@ class MongoMessageStore extends MessageStore {
       await newMessage.save();
     } catch (err) {
       console.error("Error saving message:", err);
-    }
-  }
-
-  async findMessagesForUser(userID) {
-    try {
-      const messages = await this.messages.find({
-        $or: [{ from: userID }, { to: userID }],
-      });
-      return messages || [];
-    } catch (err) {
-      console.error("Error finding messages for user:", err);
-      return [];
     }
   }
 }

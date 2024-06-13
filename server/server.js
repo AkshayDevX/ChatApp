@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const errorMiddleware = require("./middlewares/error");
 const cors = require("cors");
 const connectDatabase = require("./config/database");
+const ErrorHandler = require("./utils/errorHandler");
 
 const app = express();
 
@@ -46,7 +47,7 @@ socketIO.use(async (socket, next) => {
     }
   }
   if (!sessionID) {
-    return next(new Error("internal server error"));
+    return next(new ErrorHandler("internal server error", 500));
   }
   next();
 });
@@ -70,30 +71,28 @@ socketIO.on("connection", async (socket) => {
 
   // fetch existing users
   const users = [];
-  const messagesPerUser = new Map();
-  const messages = await messageStore?.findMessagesForUser(socket.userID);
+  // const messagesPerUser = new Map();
+  // const messages = await messageStore?.findMessagesForUser(socket.userID);
 
-  if (Array.isArray(messages)) {
-    messages.forEach((message) => {
-      const { from, to } = message;
-      const otherUser = socket.userID === from ? to : from;
-      if (messagesPerUser.has(otherUser)) {
-        messagesPerUser.get(otherUser)?.push(message);
-      } else {
-        messagesPerUser.set(otherUser, [message]);
-      }
-    });
-  }
+  // if (Array.isArray(messages)) {
+  //   messages.forEach((message) => {
+  //     const { from, to } = message;
+  //     const otherUser = socket.userID === from ? to : from;
+  //     if (messagesPerUser.has(otherUser)) {
+  //       messagesPerUser.get(otherUser)?.push(message);
+  //     } else {
+  //       messagesPerUser.set(otherUser, [message]);
+  //     }
+  //   });
+  // }
   const sessions = await sessionStore.findAllSessions();
 
   if (Array.isArray(sessions)) {
     sessions.forEach((session) => {
-      const messages = messagesPerUser.get(session._id.toString()) || [];
       users.push({
         userID: session._id,
         username: session.name,
         connected: session.connected,
-        messages: messages || [],
       });
     });
   }
@@ -105,7 +104,6 @@ socketIO.on("connection", async (socket) => {
     userID: socket.userID,
     username: socket.username,
     connected: true,
-    messages: messagesPerUser.get(socket.userID) || [],
   });
 
   // send private message
@@ -137,7 +135,6 @@ socketIO.on("connection", async (socket) => {
 
 // routes
 const user = require("./routes/userRoutes");
-const ErrorHandler = require("./utils/errorHandler");
 
 // routes middleware
 

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 import socket from "../../socket";
@@ -14,7 +14,6 @@ async function sendMessage(input: messageInput) {
 }
 
 const useSendMessageMutation = () => {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (input: messageInput) => sendMessage(input),
     onSuccess: (_data, variables) => {
@@ -22,7 +21,6 @@ const useSendMessageMutation = () => {
         message: variables.message,
         userId: variables.receiverId,
       });
-      queryClient.refetchQueries({ queryKey: ["loginUser"], exact: true });
     },
     onError: (error: any) => {
       const message = error.response.data.message;
