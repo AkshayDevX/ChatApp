@@ -23,6 +23,17 @@ npm run dev
 
 ### server
 
+create a .env file in server directory
+
+```env
+NODE_ENV = production
+DB_URI = "your mogodb url"
+
+JWT_SECRET = 
+JWT_EXPIRES_TIME = 60
+COOKIE_EXPIRES_TIME = 60
+```
+
 Start the backend server:
 
 ```bash
