@@ -42,6 +42,10 @@ npm install
 npm run dev
 ```
 
+## Pending Work 🚧
+
+ui is not fully developed
+
 And that's it! You're now ready to experience the power of real-time messaging with ChatApp. Happy chatting! 💬
 <div align="center">
   Made with ❤️ by Akshay PP
