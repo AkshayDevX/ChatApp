@@ -27,7 +27,7 @@ create a .env file in server directory
 
 ```env
 NODE_ENV = production
-DB_URI = "your mogodb url"
+DB_URI = "your mongodb url"
 
 JWT_SECRET = 
 JWT_EXPIRES_TIME = 60
