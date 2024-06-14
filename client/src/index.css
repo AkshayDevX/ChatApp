@@ -6,3 +6,7 @@
     max-height: 75vh;
     min-height: 75vh;;
 }
+
+.chat-height {
+    min-height: 52vh;;
+}

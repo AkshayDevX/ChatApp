@@ -61,9 +61,9 @@ const ChatComponent = ({ selectedUser, loginUser }: any) => {
     <div>
       {selectedUser && (
         <div>
-          <div className="p-5">
+          <div className="p-5 chat-height">
             {conversations.length >= 1 &&
-              conversations.map((message, index) => (
+              conversations.filter((message) => message.from === selectedUser.userID || message.to === selectedUser.userID).map((message, index) => (
                 <div
                   key={index}
                   className={`chat ${message.from === loginUser?.user._id ? "chat-start" : "chat-end"}`}
