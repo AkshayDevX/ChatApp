@@ -89,7 +89,7 @@ const ChatComponent = ({ selectedUser, loginUser }: any) => {
                 </div>
               ))}
           </div>
-          <form onSubmit={handleMessageSend} className="flex">
+          <form onSubmit={handleMessageSend} className="flex sticky bottom-0 p-5 rounded-tr-lg rounded-tl-lg bg-neutral">
             <input
               type="text"
               value={newMessage}

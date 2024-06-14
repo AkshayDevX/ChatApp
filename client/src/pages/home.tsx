@@ -136,14 +136,14 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <div className="mx-auto max-w-6xl flex mt-6 rounded-md shadow-md p-6">
+      <div className="mx-auto max-w-6xl screen-height flex mt-6 rounded-md shadow-md p-6">
         {/* all users Users */}
-        <div className="items-center justify-center m-8">
+        <div className="items-center justify-center lg:max-w-96">
           {sortedUsers &&
             sortedUsers.map((user: any) => (
               <div
                 key={user._id}
-                className="cursor-pointer text-lg p-2 rounded-md hover:bg-gray-500 mb-4"
+                className="cursor-pointer text-lg p-2 rounded-md w-full hover:bg-gray-500 mb-4"
                 onClick={() => handleUserClick(user.name)}
               >
                 <p>{user._id === userData?.user._id ? "You" : user.name}</p>
@@ -160,9 +160,9 @@ const Home = () => {
 
         {/* Chat */}
         {selectedUser && (
-          <div className="">
+          <div className="mx-auto overflow-auto">
             {/* Render the chat component for the selected user */}
-            <p>Selected User: {selectedUser.username}</p>
+            <p className="sticky top-0 p-2 z-10 bg-stone-700 rounded-sm">Selected User: {selectedUser.username}</p>
             <ChatComponent
               selectedUser={selectedUser}
               loginUser={userData}
