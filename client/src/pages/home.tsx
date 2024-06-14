@@ -77,7 +77,7 @@ const Home = () => {
     // new user connected
     socket.on("user connected", (user) => {
       refetchAllUsers();
-      refetchUserData()
+      refetchUserData();
       console.log(user, "user connected");
       // update online users
       setOnlineUsers((prevUsers: any) => {
@@ -131,19 +131,19 @@ const Home = () => {
     setSelectedUser(currentUser);
   };
 
-
-
   return (
     <div>
       <Header />
-      <div className="mx-auto max-w-6xl screen-height flex mt-6 rounded-md shadow-md p-6">
+      <div className="mx-auto max-w-6xl screen-height flex mt-6 rounded-md shadow-md p-6 bg-gray-900">
         {/* all users Users */}
-        <div className="items-center justify-center lg:max-w-96">
+        <div className="flex flex-col lg:max-w-96">
           {sortedUsers &&
             sortedUsers.map((user: any) => (
               <div
                 key={user._id}
-                className="cursor-pointer text-lg p-2 rounded-md w-full hover:bg-gray-500 mb-4"
+                className={`cursor-pointer text-lg p-2 rounded-md lg:w-52 hover:bg-gray-500 mb-4  ${
+                  selectedUser?.username === user.name && "bg-blue-600"
+                }`}
                 onClick={() => handleUserClick(user.name)}
               >
                 <p>{user._id === userData?.user._id ? "You" : user.name}</p>
@@ -160,13 +160,12 @@ const Home = () => {
 
         {/* Chat */}
         {selectedUser && (
-          <div className="mx-auto overflow-auto">
+          <div className="w-full overflow-auto bg-gray-700 rounded-md">
             {/* Render the chat component for the selected user */}
-            <p className="sticky top-0 p-2 z-10 bg-stone-700 rounded-sm">Selected User: {selectedUser.username}</p>
-            <ChatComponent
-              selectedUser={selectedUser}
-              loginUser={userData}
-            />
+            <p className="sticky top-0 p-2 z-10 bg-stone-700 rounded-sm">
+              Selected User: {selectedUser.username}
+            </p>
+            <ChatComponent selectedUser={selectedUser} loginUser={userData} />
           </div>
         )}
       </div>

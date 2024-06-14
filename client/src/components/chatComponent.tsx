@@ -61,7 +61,7 @@ const ChatComponent = ({ selectedUser, loginUser }: any) => {
     <div>
       {selectedUser && (
         <div>
-          <div className="chat-container">
+          <div className="p-5">
             {conversations.length >= 1 &&
               conversations.map((message, index) => (
                 <div
