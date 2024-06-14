@@ -125,10 +125,10 @@ const Home = () => {
   console.log(onlineUsers, "online users");
 
   const handleUserClick = (user: any) => {
-    const currentUser = onlineUsers.find(
-      (u: socketUser) => u.username === user
-    );
-    setSelectedUser(currentUser);
+    // const currentUser = onlineUsers.find(
+    //   (u: socketUser) => u.username === user
+    // );
+    setSelectedUser(user);
   };
 
   return (
@@ -138,13 +138,13 @@ const Home = () => {
         {/* all users Users */}
         <div className="flex flex-col lg:max-w-96">
           {sortedUsers &&
-            sortedUsers.map((user: any) => (
+            sortedUsers.filter((user: any) => user.name !== userData?.user?.name).map((user: any) => (
               <div
                 key={user._id}
                 className={`cursor-pointer text-lg p-2 rounded-md lg:w-52 hover:bg-gray-500 mb-4  ${
                   selectedUser?.username === user.name && "bg-blue-600"
                 }`}
-                onClick={() => handleUserClick(user.name)}
+                onClick={() => handleUserClick(user)}
               >
                 <p>{user._id === userData?.user._id ? "You" : user.name}</p>
                 <p className="text-xs font-extralight">

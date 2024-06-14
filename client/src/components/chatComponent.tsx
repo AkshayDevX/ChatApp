@@ -39,7 +39,7 @@ const ChatComponent = ({ selectedUser, loginUser }: any) => {
     if (newMessage.trim() !== "") {
       socket.emit("private message", {
         content: newMessage,
-        to: selectedUser.userID,
+        to: selectedUser._id,
       });
       setNewMessage("");
     }
@@ -63,7 +63,7 @@ const ChatComponent = ({ selectedUser, loginUser }: any) => {
         <div>
           <div className="p-5 chat-height">
             {conversations.length >= 1 &&
-              conversations.filter((message) => message.from === selectedUser.userID || message.to === selectedUser.userID).map((message, index) => (
+              conversations.filter((message) => message.from === selectedUser._id || message.to === selectedUser._id).map((message, index) => (
                 <div
                   key={index}
                   className={`chat ${message.from === loginUser?.user._id ? "chat-start" : "chat-end"}`}
@@ -79,7 +79,7 @@ const ChatComponent = ({ selectedUser, loginUser }: any) => {
                   <div className="chat-header">
                     {message.from === loginUser?.user._id
                       ? "You"
-                      : selectedUser.username}
+                      : selectedUser.name}
                     <time className="text-xs ml-2 opacity-50">
                       {new Date(message.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' })}
                     </time>
